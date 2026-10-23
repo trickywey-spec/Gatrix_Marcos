@@ -1,0 +1,18 @@
+/* Afinación común: logotipo, títulos y disposición sin colisiones */
+.sidebar-brand {gap:12px; font-size:19px; min-width:0; letter-spacing:.035em;}
+.sidebar-brand > span:last-child {min-width:0; overflow-wrap:anywhere;}
+.sidebar-brand small {line-height:1.5;letter-spacing:.1em;}
+.brand-mark {overflow:hidden; background:white;}
+.brand-mark img {height:100%; width:100%; object-fit:contain; display:block;}
+.title-brand-logo {width:26px;height:26px;object-fit:contain;vertical-align:middle;margin-right:8px;border-radius:6px;background:#fff;}
+.topbar-crumb {display:flex;align-items:center;gap:5px;min-width:0;flex-wrap:wrap;}
+.topbar-right {white-space:nowrap;}
+.admin-content .page-heading > *,.admin-content .d-flex > * {min-width:0;}
+.page-heading h1,.subpage-title {overflow-wrap:break-word;}
+.admin-content .table .btn {white-space:nowrap;}
+.login-brand-image {width:48px;height:48px;object-fit:contain;background:white;border-radius:12px;padding:3px;flex:0 0 auto;}
+@media(max-width:850px){.admin-topbar{padding-inline:16px}.topbar-crumb{font-size:11px}.admin-content{padding:22px 15px 36px}.sidebar-brand{font-size:17px;}}
+
+.gatrix-heading-logo {display:inline-block;width:clamp(35px,4vw,55px);height:clamp(35px,4vw,55px);object-fit:contain;vertical-align:middle;margin-right:.22em;background:white;border-radius:12px;padding:4px;box-shadow:0 5px 18px #071a3450;}
+.page-banner h2,.booking-banner h1,.new-public h1 {line-height:1.22;max-width:100%;overflow-wrap:break-word;}
+@media(max-width:600px){.gatrix-heading-logo {width:35px;height:35px;margin-right:6px;border-radius:8px;}}

@@ -1,0 +1,15 @@
+<!doctype html><html lang="es" xmlns:th="http://www.thymeleaf.org"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Catálogo de servicios · GATRIX Marcos</title>
+<link rel="icon" href="/img/gatrix-logo-corporativo.png">
+<link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="/css/admin.css?v=10"><link rel="stylesheet" href="/css/roles-gatrix.css?v=10"></head>
+<body><div th:replace="~{fragments/trabajador :: menu}"></div>
+<main class="admin-content"><div class="page-heading"><div><span class="eyebrow">ÁREA DEL TRABAJADOR / SOLO CONSULTA</span>
+<h1>Catálogo de servicios</h1><p>Vista de consulta. Los cambios están reservados al administrador.</p></div>
+<a class="btn btn-outline-primary" th:href="@{/trabajador}">Volver a mis atenciones</a></div>
+<section class="surface-card"><div class="table-responsive"><table class="table modern-table"><thead><tr><th>Nombre</th><th>Descripción</th><th>Precio</th><th>Disponible</th></tr></thead><tbody>
+<tr th:each="s : ${servicios}"><td th:text="${s.nombre}"></td><td th:text="${s.descripcion}"></td><td th:text="${s.precio}"></td><td th:text="${s.activo}"></td></tr>
+<tr th:if="${#lists.isEmpty(servicios)}"><td colspan="4" class="empty-state">Sin registros disponibles.</td></tr>
+</tbody></table></div></section></main><div th:replace="~{fragments/admin :: pie}"></div></body></html>

@@ -1,0 +1,183 @@
+/* GATRIX STUDIO | Sistema visual del área administrativa */
+:root {
+    --ink: #14243c;
+    --muted: #79879a;
+    --canvas: #f3f6fb;
+    --surface: #ffffff;
+    --nav: #101c32;
+    --nav-soft: #182841;
+    --ocean: #1756c5;
+    --aqua: #43cbbb;
+    --border: #e5ebf4;
+    --radius: 19px;
+}
+*, *::before, *::after {box-sizing: border-box}
+body { margin: 0; min-height: 100vh; background: var(--canvas); font: 15px/1.55 'DM Sans', sans-serif; color: var(--ink); }
+h1, h2, h3, h4, .sidebar-brand, .metric-card strong {font-family: 'Outfit',sans-serif;}
+a {text-decoration: none}
+.admin-sidebar {width: 262px; position: fixed; inset: 0 auto 0 0; background: var(--nav); color: #f3f8ff; z-index: 1010; display: flex; flex-direction: column; padding: 28px 16px 18px; overflow-y: auto; box-shadow: 5px 0 22px rgba(17,32,57,.1); scrollbar-width: thin; }
+.sidebar-brand {color: white; display:flex; align-items:center; gap:12px; padding:0 10px 37px; font-size: 21px; font-weight:800; letter-spacing:.07em; line-height:1.05; }
+.sidebar-brand:hover {color:white}
+.sidebar-brand small {display:block; font: 600 9px 'DM Sans',sans-serif; letter-spacing: .17em; color:#8da4c5; margin-top: 6px; }
+.brand-mark {border-radius:12px; background:linear-gradient(135deg,#48ded1,#2789de); width:42px; height:42px; display:grid; place-items:center; color:#101c32; font-size:19px; flex-shrink:0; box-shadow:0 10px 24px rgba(67,203,187,.15)}
+.sidebar-label {padding:0 13px; margin:0 0 13px; font-size:10px; font-weight:800; letter-spacing:.14em; color:#8194b2}
+.sidebar-links {display:flex; flex-direction:column; gap:5px}
+.sidebar-links a, .sidebar-bottom > a {display:flex; align-items:center; gap:13px; color:#9caec8; font-weight:650; font-size:13px; padding:12px 13px; border-radius:11px; transition:.2s ease}
+.sidebar-links a i {width:20px; text-align:center; font-size:16px}
+.sidebar-links a:hover, .sidebar-links a.selected {background:#1e3151; color:#fff}
+.sidebar-links a.selected {border-left:3px solid var(--aqua); padding-left:10px}
+.sidebar-bottom {margin-top:auto; padding-top:18px; border-top:1px solid #2b3d55}
+.sidebar-bottom > a {font-size:12px}
+.admin-account {display:flex; align-items:center; gap:11px; padding:13px 11px; margin:7px 0; border-radius:14px; background:#1b2b44}
+.account-icon, .topbar-avatar {background:#d6f7f3; color:#105c5e; display:grid; place-items:center; border-radius:11px; width:35px; height:35px; font-weight:800; flex-shrink:0}
+.admin-account b, .admin-account small {display:block; font-size:12px; line-height:1.45}
+.admin-account small {font-size:10px; color:#9db1cb}
+.signout {display:block; width:100%; background:transparent; border:1px solid #3c4c62; color:#e0e8f6; border-radius:11px; padding:10px; font-size:13px; text-align:left}
+.signout i {margin-right:13px}
+.signout:hover {border-color:#d47077; background:#3f283a}
+.admin-topbar {height:73px; position:sticky; top:0; z-index:999; margin-left:262px; background:rgba(255,255,255,.95); backdrop-filter:blur(12px); display:flex; align-items:center; justify-content:space-between; padding:0 clamp(20px,3.4vw,54px); border-bottom:1px solid var(--border)}
+.topbar-crumb {font-size:13px; font-weight:800; letter-spacing:.06em; color:#31455f}
+.topbar-crumb i {font-size:9px; margin:0 9px; color:#9bb0c9}
+.topbar-right {display:flex; align-items:center; gap:11px; color:#647792; font-size:12px; font-weight:700}
+.live-indicator {background:#26c18b; box-shadow:0 0 0 4px #d6f8ea; border-radius:50%; width:8px; height:8px}
+.topbar-avatar {width:36px;height:36px; margin-left:15px; color:#155a80; background:#e0f0ff}
+.mobile-menu-toggle {display:none; color:var(--ink); background:none; border:0; font-size:23px}
+.admin-backdrop {display:none}
+.admin-content {margin-left:262px; padding:38px clamp(20px,3.4vw,54px) 52px; min-height:calc(100vh - 143px); max-width:1700px}
+.page-heading {display:flex; justify-content:space-between; align-items:center; gap:18px; flex-wrap:wrap; margin-bottom:29px}
+.eyebrow {color:#1a93a3; font-size:10px; letter-spacing:.19em; font-weight:900; display:inline-block; margin-bottom:7px}
+.page-heading h1, .page-title {font-size:clamp(28px,3vw,37px); font-weight:800; letter-spacing:-.04em; margin:0 0 6px}
+.page-heading p {color:#78889c; margin:0; font-size:14px}
+.heading-spark {font-size:25px; color:#22b9bf}
+.btn {border-radius:10px; padding:.64rem 1rem; font-weight:750; font-size:13px}
+.btn-primary {background:#1b64d5; border-color:#1b64d5; box-shadow:0 8px 20px rgba(26,100,214,.17)}
+.btn-primary:hover {background:#124eb5; border-color:#124eb5}
+.btn-outline-primary {color:#1756c5; border-color:#c4d6f7}
+.btn-outline-primary:hover {background:#eef5ff; color:#1756c5; border-color:#9ebbec}
+.btn-outline-secondary {border-color:#d5dfeb; color:#5b6f86}
+.metric-card {position:relative; overflow:hidden; background:#fff; padding:24px; min-height:214px; border:1px solid var(--border); border-radius:var(--radius); box-shadow:0 8px 30px rgba(25,50,88,.045); display:flex; flex-direction:column; align-items:flex-start}
+.metric-card::after {content:""; position:absolute; height:85px; width:85px; border-radius:50%; right:-39px; top:-40px; background:currentColor; opacity:.06}
+.metric-card span {font-size:13px; font-weight:700; color:#708098; margin-top:16px}
+.metric-card strong {font-size:32px; font-weight:800; line-height:1.35; letter-spacing:-.035em; color:#172947}
+.metric-card a {margin-top:auto; font-size:12px; font-weight:800; color:#43709c}
+.metric-card a i {font-size:9px; margin-left:6px}
+.metric-card p {margin-top:auto}
+.metric-icon {height:41px;width:41px;border-radius:12px;display:grid;place-items:center;background:#def7f8;color:#21899b;font-size:17px}
+.accent-gold .metric-icon {background:#fff4d9;color:#c08b26}
+.accent-green .metric-icon {background:#dff9eb;color:#1b9667}
+.accent-violet .metric-icon {background:#f0e8ff;color:#7a58ce}
+.surface-card, .admin-card {background:#fff; border:1px solid var(--border); border-radius:var(--radius); box-shadow:0 9px 32px rgba(18,40,77,.04); padding:25px;}
+.section-heading {display:flex; justify-content:space-between; align-items:flex-start; gap:15px; margin-bottom:20px}
+.section-heading h2 {font-size:20px;font-weight:800;letter-spacing:-.025em;margin:0 0 4px}
+.section-heading p {font-size:12px;color:#8492a6;margin:0}
+.pill-soft {font-size:11px;font-weight:800;color:#2869a2;background:#edf4fc;padding:7px 10px;border-radius:50px}
+.text-link {font-size:12px;font-weight:800;color:#2562b4;white-space:nowrap}
+.chart-bars {display:flex; align-items:end; justify-content:space-around; gap:15px; height:255px; padding:10px 5px 0}
+.chart-column {display:flex;flex-direction:column;align-items:center;justify-content:end;flex:1;min-width:0;height:100%;gap:8px}
+.chart-value {font-size:12px;color:#64758b;font-weight:800}
+.chart-track {height:190px;background:#eef4fc;max-width:54px;width:100%;border-radius:11px 11px 3px 3px;display:flex;align-items:flex-end;overflow:hidden}
+.chart-fill {background:linear-gradient(180deg,#49ced1,#2466ce);border-radius:10px 10px 3px 3px;width:100%;min-height:6px}
+.chart-day {text-transform:capitalize;color:#8192a7;font-size:12px;font-weight:700}
+.health-row {display:flex;align-items:center;gap:14px;padding:15px 0;border-bottom:1px solid #eef2f8}
+.health-row:last-child {border-bottom:0}
+.health-icon {width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:#e4f0ff;color:#286fc4;font-size:17px}
+.health-icon.orange {background:#fff3de;color:#c38a1a}
+.health-icon.red {background:#ffe9ec;color:#d34e6b}
+.health-icon.green {background:#e0f8ea;color:#2f9a67}
+.health-row b {display:block;font-size:19px;font-family:'Outfit',sans-serif}
+.health-row small {display:block;font-size:12px;color:#7b8da4}
+.modern-table {--bs-table-color:#233955; --bs-table-bg:transparent; margin-bottom:0;min-width:600px}
+.modern-table th {border-bottom:1px solid #e9eef6;letter-spacing:.065em;font-size:10px;color:#8b9bb0;font-weight:900;text-transform:uppercase;padding:14px 12px}
+.modern-table td {border-bottom:1px solid #f0f3f9;vertical-align:middle;padding:16px 12px;font-size:13px}
+.modern-table tbody tr:last-child td {border-bottom:0}
+.modern-table tbody tr:hover {background:#f8fbff}
+.modern-table td strong {font-size:13px}
+.cell-truncate {max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.status-badge {display:inline-flex;align-items:center;border-radius:30px;padding:6px 10px;font-size:10px;font-weight:900;letter-spacing:.025em;background:#eff4fb;color:#60718a}
+.st-pendiente {background:#fff3d8;color:#a27106}
+.st-confirmada {background:#e1f1ff;color:#1971be}
+.st-en_proceso {background:#f1e9ff;color:#7b45b3}
+.st-completada {background:#dff8eb;color:#218258}
+.st-cancelada {background:#ffe7eb;color:#b8465b}
+.empty-state {padding:42px 20px!important;text-align:center;color:#8291a5;font-size:14px}
+.filter-bar {display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 18px}
+.filter-search {position:relative; flex:2;min-width:220px}
+.filter-search > i {position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#8494a7}
+.filter-search .form-control {padding-left:41px}
+.filter-bar > select {flex:1;min-width:180px}
+.form-control,.form-select {border:1px solid #dce4f0;border-radius:10px;padding:.65rem .85rem;color:#27415b;font-size:13px;background-color:white}
+.form-control:focus,.form-select:focus {border-color:#64b7db;box-shadow:0 0 0 3px #e4f6fb}
+.form-label {font-size:12px;font-weight:800;color:#435872;margin-bottom:7px}
+.form-surface {max-width:750px;padding:32px}
+.page-title {margin-bottom:22px}
+/* Pantallas CRUD heredadas conservan su estructura, ahora comparten identidad visual */
+body:has(.admin-sidebar) main.container {margin-left:262px!important;margin-right:0!important;max-width:none!important;width:auto!important;padding:38px clamp(20px,3.4vw,54px)!important;min-height:calc(100vh - 140px)}
+body:has(.admin-sidebar) main.container > .card, body:has(.admin-sidebar) main.container > div.card {border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 9px 32px rgba(18,40,77,.04)}
+body:has(.admin-sidebar) .table {--bs-table-border-color:#ebeff7}
+body:has(.admin-sidebar) .table th {font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#8998ac}
+body:has(.admin-sidebar) .table td {font-size:13px;vertical-align:middle;padding:13px 10px}
+body:has(.admin-sidebar) .card {border-radius:var(--radius)}
+.footer-admin {margin-left:262px;padding:23px clamp(20px,3.4vw,54px);display:flex;justify-content:space-between;gap:16px;color:#94a2b2;font-size:11px;border-top:1px solid #e5ebf4}
+@media(max-width:1000px){.admin-sidebar {transform:translateX(-105%);transition:transform .25s ease}.admin-sidebar.sidebar-open {transform:translateX(0)}.admin-topbar,.footer-admin,.admin-content,body:has(.admin-sidebar) main.container {margin-left:0!important}.mobile-menu-toggle {display:inline-block}.topbar-crumb {margin-right:auto;margin-left:14px}.admin-backdrop.visible {display:block;position:fixed;inset:0;background:rgba(13,24,43,.55);z-index:1000}}
+@media(max-width:650px){.admin-content {padding:25px 15px}.admin-topbar{padding:0 16px}.page-heading h1{font-size:28px}.topbar-right{font-size:0}.topbar-right .live-indicator{display:none}.chart-bars{gap:6px}.surface-card{padding:17px}.metric-card {min-height:190px}.footer-admin{padding:19px 15px;flex-direction:column}.filter-bar>*{width:100%;flex:auto}.topbar-crumb{font-size:11px}}
+
+/* GATRIX 2026: identidad visual renovada. Diseño original adaptado al proyecto Spring MVC. */
+:root {
+  --ink: #0d294c; --muted: #6d8099; --canvas: #f2f6fb; --surface: #fff;
+  --nav: #092a56; --nav-soft: #113d73; --ocean: #145baf; --aqua: #ef2454;
+  --border: #dee8f3; --radius: 18px;
+}
+body {font-family: Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:linear-gradient(140deg,#f1f5fa 0%,#f8fafc 100%); color:var(--ink)}
+.admin-sidebar {background:linear-gradient(158deg,#0b376b 0%,#092b56 48%,#071e40 100%);box-shadow:12px 0 34px rgba(10,30,65,.11);width:264px;padding-top:23px}
+.sidebar-brand {border-radius:14px;gap:10px;font-size:20px;letter-spacing:.09em;padding-bottom:27px}
+.brand-mark {background:#fff;box-shadow:0 9px 25px rgba(0,0,0,.12);width:48px;height:48px;overflow:hidden}
+.brand-mark img {width:44px;height:44px;object-fit:contain}
+.sidebar-brand small {letter-spacing:.15em;color:#abc7e6;font-size:8px}
+.sidebar-label {color:#93b3d7;margin-top:9px}
+.sidebar-links a {color:#d6e5f6;border:1px solid transparent;min-height:46px;font-weight:650;border-radius:12px}
+.sidebar-links a:hover,.sidebar-links a.selected {background:rgba(255,255,255,.105);border-color:rgba(255,255,255,.11);color:#fff}
+.sidebar-links a.selected{box-shadow:inset 3px 0 #ff3d69;padding-left:10px}
+.sidebar-links a i {font-size:15px}
+.sidebar-bottom {border-top-color:rgba(255,255,255,.13)}
+.admin-account {background:rgba(255,255,255,.075)}
+.account-icon,.topbar-avatar {color:#fff;background:linear-gradient(135deg,#2463b2,#123d79)}
+.admin-topbar {margin-left:264px;height:78px;padding:0 clamp(20px,3vw,48px);background:rgba(255,255,255,.97)}
+.admin-content {margin-left:264px;padding:35px clamp(20px,3vw,48px) 70px}
+.topbar-crumb {font-size:13px;letter-spacing:0;color:#22486d}
+.topbar-crumb::first-letter{color:#eb2555}
+.topbar-right {gap:10px}
+.live-indicator {background:#16b78c;box-shadow:0 0 0 4px #e0f7ed}
+.page-heading{padding:23px 27px;background:linear-gradient(115deg,#0d3a71,#0b568f);border-radius:18px;color:#fff;box-shadow:0 15px 35px rgba(11,65,124,.12)}
+.page-heading h1,.page-title {color:#fff;letter-spacing:-.035em}
+.page-heading p{color:#c7dcf3}
+.page-heading .eyebrow,.page-heading .heading-spark{color:#ff7190}
+.page-heading .btn-outline-primary {background:#ffffff14!important;border:1px solid #ffffff5c!important;color:#fff!important}
+.page-heading .btn-primary {background:#ef2454!important;border:1px solid #ef2454!important;color:#fff}
+.page-heading .btn-primary:hover {background:#d11242!important}
+.metric-card,.surface-card,.admin-card{border-color:#dfe8f2;box-shadow:0 12px 32px rgba(18,52,89,.045)}
+.metric-card {min-height:197px}
+.metric-card strong {color:#0c315d}
+.metric-card a {color:#195eaa}
+.metric-icon {background:#ebf2ff;color:#2a6dc6}
+.accent-gold .metric-icon {background:#fff2df;color:#bd7b20}
+.accent-green .metric-icon {background:#e6f9f1;color:#16a36c}
+.accent-violet .metric-icon {background:#ffecf1;color:#db315e}
+.status-badge.st-pendiente {background:#fff3db;color:#9a6424}
+.status-badge.st-confirmada {background:#e7f4ff;color:#116db0}
+.status-badge.st-en_proceso {background:#edeaff;color:#6251a6}
+.status-badge.st-completada {background:#e1f8ea;color:#197648}
+.status-badge.st-cancelada {background:#fff0f0;color:#b33e50}
+.btn-primary {background:#e81f50;border-color:#e81f50;box-shadow:0 8px 20px rgba(232,31,80,.17)}
+.btn-primary:hover,.btn-primary:focus {background:#cb1843;border-color:#cb1843}
+.btn-outline-primary {color:#174f96;border-color:#b7cfe8}
+.btn-outline-primary:hover {background:#f0f6ff;color:#153d79;border-color:#8fb3db}
+.form-control:focus,.form-select:focus {border-color:#6a9fda;box-shadow:0 0 0 4px rgba(21,104,180,.11)}
+.footer-admin {margin-left:264px}
+.table th {background:#f6f9fd;color:#62758e;font-size:11px;letter-spacing:.045em}
+.table tbody tr:hover {background:#f8fbff}
+@media(max-width:1100px) { .admin-sidebar {width:238px} .admin-topbar,.admin-content,.footer-admin {margin-left:238px} }
+@media(max-width:900px) { .admin-sidebar {width:264px;transform:translateX(-100%)} .admin-sidebar.sidebar-open {transform:translateX(0)} .admin-topbar,.admin-content,.footer-admin {margin-left:0} .mobile-menu-toggle{display:inline-flex;align-items:center;justify-content:center} }
+@media(max-width:600px) { .page-heading{padding:20px;border-radius:15px}.admin-content{padding:22px 12px 38px}.topbar-right{font-size:0}.topbar-avatar{font-size:12px}.metric-card{min-height:165px} }
+
+.subpage-title {font-size:30px;font-weight:850;letter-spacing:-.03em;color:#0a2f5e;margin:0 0 22px}
+.admin-content .card.admin-card {background:#fff;border:1px solid #e0e9f2;border-radius:18px;box-shadow:0 12px 32px #0d356011}

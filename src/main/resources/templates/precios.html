@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gatrix CarWash | Precios y cotizador</title>
+    <meta name="description" content="Gatrix CarWash: lavado y estética vehicular premium en La Molina, Lima. Reserva tu turno online.">
+    
+    <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/global.css">
+    
+    <link rel="stylesheet" href="/css/site-premium.css">
+    <link rel="stylesheet" href="/css/public-refresh.css?v=4">
+
+    <link rel="icon" href="/img/Logo.png" type="image/png">
+
+<link rel="stylesheet" href="/css/gatrix-forms-nav.css?v=8">
+<link rel="stylesheet" href="/css/roles-gatrix.css?v=11">
+</head>
+<body>
+<header th:replace="~{fragments/public :: barra}"></header>
+
+<main>
+ <section class="page-banner"><div class="container"><span class="hero-badge">PRECIOS TRANSPARENTES</span><h2 class="mt-3"><img class="gatrix-heading-logo" src="/img/gatrix-logo-corporativo.png" alt="GATRIX" loading="lazy"> Arma tu experiencia GATRIX</h2><p>Selecciona servicios, calcula tu presupuesto y reserva con el precio real.</p></div></section>
+ <section class="container py-block"><div class="row g-5 align-items-start">
+  <div class="col-lg-7"><div class="section-header text-start mb-4"><h2>Servicios disponibles</h2><p>Precios actuales sincronizados con PostgreSQL. Los importes ya incluyen IGV.</p></div>
+  <label class="premium-service-option" th:each="item : ${serviciosActivos}"><input class="calc-service" type="checkbox" th:value="${item.id}" th:attr="data-precio=${item.precio}"><span class="flex-grow-1"><strong class="d-block" th:text="${item.nombre}">Nombre</strong><small th:text="${item.descripcion}">Descripción</small></span><span class="price" th:text="${'S/ ' + item.precio}">S/ 0</span></label>
+  <div th:if="${#lists.isEmpty(serviciosActivos)}" class="alert alert-info">Estamos actualizando el catálogo, vuelve a consultar en unos minutos.</div>
+  </div>
+  <div class="col-lg-5"><div class="resumen-panel p-4 rounded-4"><div class="d-flex align-items-center gap-2 mb-3"><i class="fa-solid fa-receipt text-info"></i><h4 class="m-0">Tu presupuesto</h4></div>
+   <p class="small opacity-75">Selecciona los servicios y el número de vehículos.</p>
+   <div class="d-flex justify-content-between align-items-center my-4"><span>Vehículos</span><div class="d-flex align-items-center gap-3"><button class="btn btn-outline-light" id="menosVehiculos" type="button" aria-label="Reducir cantidad">−</button><strong id="cantidadCotiza" class="fs-4">1</strong><button class="btn btn-outline-light" id="masVehiculos" type="button" aria-label="Aumentar cantidad">+</button></div></div>
+   <div class="d-flex justify-content-between my-2"><span class="opacity-75">Servicios seleccionados</span><b id="seleccionados">0</b></div><div class="d-flex justify-content-between my-2"><span class="opacity-75">Subtotal sin IGV</span><b id="cotizaBase">S/ 0.00</b></div><div class="d-flex justify-content-between my-2"><span class="opacity-75">IGV incluido (18%)</span><b id="cotizaImpuesto">S/ 0.00</b></div>
+   <hr class="border-light opacity-25"><div class="d-flex align-items-center justify-content-between mb-4"><strong>Total estimado</strong><strong id="cotizaTotal" class="fs-2">S/ 0.00</strong></div>
+   <a id="continuarReserva" href="/reservas.html" class="btn-gatrix-primary w-100">Continuar con la reserva <i class="fa-solid fa-arrow-right"></i></a><p class="small opacity-50 mt-3 mb-0">El servidor valida nuevamente precios y disponibilidad al reservar.</p>
+  </div></div>
+ </div></section>
+</main>
+
+<footer class="main-footer">
+    <div class="container">
+        <div class="row g-4 pb-4">
+            <div class="col-md-4 footer-col">
+                <h3><i class="fas fa-car-side text-brand"></i> Gatrix CarWash</h3>
+                <p>El brillo que tu auto merece. Tecnología y pasión por los autos desde 2026.</p>
+            </div>
+            <div class="col-md-4 footer-col">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="/index.html"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+                    <li><a href="/inicio.html"><i class="fas fa-chevron-right"></i> Nosotros</a></li>
+                    <li><a href="/ubicacion.html"><i class="fas fa-chevron-right"></i> Ubicación</a></li>
+                    <li><a href="/servicios.html"><i class="fas fa-chevron-right"></i> Servicios</a></li>
+                    <li><a href="/adicionales.html"><i class="fas fa-chevron-right"></i> Adicionales</a></li>
+                    <li><a href="/precios.html"><i class="fas fa-chevron-right"></i> Precios</a></li>
+                    <li><a href="/reservas.html"><i class="fas fa-chevron-right"></i> Reservas</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 footer-col">
+                <h4>Contacto &amp; Redes</h4>
+                <p><i class="fas fa-phone"></i> 987 654 321</p>
+                <p><i class="fas fa-envelope"></i> contacto@gatrixcarwash.pe</p>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Los Ingenieros 456, La Molina</p>
+                <div class="social-links">
+                    <a href="https://wa.me/51987654321" target="_blank" rel="noopener" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://facebook.com" target="_blank" rel="noopener" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://youtube.com" target="_blank" rel="noopener" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Gatrix CarWash | Todos los derechos reservados</p>
+    </div>
+</footer>
+<script src="/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="/js/site.js?v=4"></script>
+<a class="floating-whatsapp" href="https://wa.me/51987654321" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a><script src="/js/gatrix-validation.js?v=8" defer></script>
+</body></html>

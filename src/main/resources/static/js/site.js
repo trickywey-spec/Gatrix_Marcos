@@ -1,0 +1,31 @@
+"use strict";
+(() => {
+    const serviceInputs = [...document.querySelectorAll(".calc-service")];
+    if (!serviceInputs.length) return;
+    const qty = document.getElementById("cantidadCotiza");
+    const total = document.getElementById("cotizaTotal");
+    const base = document.getElementById("cotizaBase");
+    const tax = document.getElementById("cotizaImpuesto");
+    const n = document.getElementById("seleccionados");
+    const link = document.getElementById("continuarReserva");
+    let count = 1;
+    const money = (value) => `S/ ${value.toFixed(2)}`;
+    const update = () => {
+        const selected = serviceInputs.filter((input) => input.checked);
+        const final = selected.reduce((sum, input) => sum + Number(input.dataset.precio || 0), 0) * count;
+        qty.textContent = String(count);
+        total.textContent = money(final);
+        base.textContent = money(final / 1.18);
+        tax.textContent = money(final - final / 1.18);
+        n.textContent = String(selected.length);
+        const params = new URLSearchParams({servicios: selected.map((item) => item.value).join(","), cantidad: String(count)});
+        link.href = `reservas.html?${params.toString()}`;
+        link.classList.toggle("disabled", !selected.length);
+        link.setAttribute("aria-disabled", String(!selected.length));
+        link.tabIndex = selected.length ? 0 : -1;
+    };
+    document.getElementById("menosVehiculos")?.addEventListener("click", () => {count = Math.max(1, count - 1); update();});
+    document.getElementById("masVehiculos")?.addEventListener("click", () => {count = Math.min(10, count + 1); update();});
+    serviceInputs.forEach((input) => input.addEventListener("change", update));
+    update();
+})();

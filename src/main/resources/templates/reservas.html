@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#082650">
+  <title>Reservar un turno · GATRIX CarWash</title>
+  <meta name="description" content="Reserva tu servicio de lavado vehicular en Gatrix, selecciona fecha y horario disponibles y recibe una confirmación.">
+  <link rel="icon" href="/img/Logo.png" type="image/png">
+  <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/site-premium.css">
+  <link rel="stylesheet" href="/css/public-refresh.css?v=4">
+<link rel="stylesheet" href="/css/gatrix-forms-nav.css?v=8">
+<link rel="stylesheet" href="/css/roles-gatrix.css?v=11">
+</head>
+<body class="new-public reserva-screen">
+  <header th:replace="~{fragments/public :: barra}"></header>
+
+  <section class="booking-banner">
+    <div class="container-xxl booking-banner-content">
+      <span class="eyebrow-light"><i class="fa-solid fa-calendar-check"></i> AGENDA DIGITAL DE GATRIX</span>
+      <h1><img class="gatrix-heading-logo" src="/img/gatrix-logo-corporativo.png" alt="GATRIX" loading="lazy"> Un nuevo brillo empieza <em>con tu reserva.</em></h1>
+      <p>Selecciona tus servicios, encuentra un horario disponible y deja que nuestro equipo se encargue del resto.</p>
+      <div class="banner-badges"><span><i class="fa-solid fa-shield-heart"></i> Reserva segura</span><span><i class="fa-regular fa-clock"></i> Horarios en tiempo real</span><span><i class="fa-solid fa-receipt"></i> Precio transparente</span></div>
+    </div>
+  </section>
+
+  <main class="container-xxl booking-main">
+    <div class="row g-4 align-items-start">
+      <aside class="col-lg-4 order-2 order-lg-1">
+        <div class="booking-aside-card">
+          <span class="card-eyebrow">PLANIFICA TU VISITA</span>
+          <h2>Tu auto, en buenas manos.</h2>
+          <p>Un proceso sencillo para reservar tu atención. Recibirás un código que podrás consultar después.</p>
+          <div class="booking-step"><span>01</span><div><strong>Selecciona los servicios</strong><small>Elige uno o más tratamientos.</small></div></div>
+          <div class="booking-step"><span>02</span><div><strong>Escoge un horario libre</strong><small>La agenda se actualiza desde el sistema.</small></div></div>
+          <div class="booking-step"><span>03</span><div><strong>Confirma tu solicitud</strong><small>Guarda tu código de seguimiento.</small></div></div>
+          <a class="help-link" href="/consulta"><i class="fa-solid fa-magnifying-glass"></i> ¿Ya reservaste? Consulta tu estado <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="booking-help-card"><i class="fa-solid fa-headset"></i><div><strong>¿Necesitas asistencia?</strong><p>También puedes escribirnos por WhatsApp.</p><a href="https://wa.me/51987654321" target="_blank" rel="noopener">Enviar mensaje <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+      </aside>
+      <div class="col-lg-8 order-1 order-lg-2">
+        <div class="booking-form-card">
+          <div class="booking-form-title"><div><span class="card-eyebrow">PASO A PASO</span><h2>Reserva tu turno</h2><p>Completa tus datos. Todos los campos con * son obligatorios.</p></div><span class="booking-mini-icon"><i class="fa-regular fa-calendar-plus"></i></span></div>
+          <form id="formReserva" th:action="@{/reservas}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <div class="alert alert-danger" role="alert" th:if="${errorReserva}" th:text="${errorReserva}"></div>
+            <div class="alert alert-danger" role="alert" th:if="${erroresReserva}">Revisa los datos obligatorios e intenta nuevamente.</div>
+            <div class="form-section-label"><span>1</span> Datos de contacto</div>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6"><label class="form-label" for="nombreCompleto">Nombre completo *</label><input class="form-control" id="nombreCompleto" name="nombreCompleto" minlength="2" type="text" maxlength="120" autocomplete="name" placeholder="Ej.: Ana Pérez" th:value="${reservaForm.nombreCompleto}" required data-validate="name"></div>
+              <div class="col-md-6"><label class="form-label" for="email">Correo electrónico *</label><input class="form-control" id="email" name="email" type="email" maxlength="120" autocomplete="email" placeholder="correo@ejemplo.com" th:value="${reservaForm.email}" required data-validate="email"></div>
+              <div class="col-md-6"><label class="form-label" for="telefono">Teléfono *</label><input class="form-control" id="telefono" name="telefono" minlength="9" maxlength="9" pattern="9[0-9]{8}" type="tel" autocomplete="tel" placeholder="987 654 321" th:value="${reservaForm.telefono}" required data-validate="phone" inputmode="numeric"></div>
+              <div class="col-md-6"><label class="form-label" for="placa">Placa (opcional)</label><input class="form-control text-uppercase" id="placa" name="placa" pattern="[A-Za-z0-9-]{0,20}" maxlength="20" th:value="${reservaForm.placa}" placeholder="ABC-123" data-validate="plate" autocapitalize="characters"></div>
+              <div class="col-12"><label class="form-label" for="tipoVehiculo">Tipo de vehículo *</label><select class="form-select" id="tipoVehiculo" name="tipoVehiculo" required><option value="">Selecciona el vehículo</option><option value="Sedán / Hatchback" th:selected="${reservaForm.tipoVehiculo == 'Sedán / Hatchback'}">Sedán / Hatchback</option><option value="Camioneta / SUV" th:selected="${reservaForm.tipoVehiculo == 'Camioneta / SUV'}">Camioneta / SUV</option><option value="4x4 / Pick-up" th:selected="${reservaForm.tipoVehiculo == '4x4 / Pick-up'}">4x4 / Pick-up</option><option value="Motocicleta" th:selected="${reservaForm.tipoVehiculo == 'Motocicleta'}">Motocicleta</option></select></div>
+            </div>
+            <div class="form-section-label"><span>2</span> Servicios que necesitas</div>
+            <p class="booking-hint">Puedes combinar servicios. El importe se calcula con los precios registrados en GATRIX.</p>
+            <div class="booking-services" id="bookingServices" aria-live="polite" aria-busy="true">
+              <p class="text-muted small py-3 mb-0" id="catalogStatus"><i class="fa-solid fa-spinner fa-spin me-2" aria-hidden="true"></i> Cargando servicios disponibles...</p>
+            </div>
+            <div class="booking-catalog-alert alert alert-warning mt-2 mb-4 d-none" id="catalogError" role="alert">
+              <span id="catalogErrorText">No se pudo cargar el catálogo de servicios.</span>
+              <button type="button" class="btn btn-sm btn-outline-dark ms-2" id="retryCatalog">Reintentar</button>
+            </div>
+            <div id="previouslySelectedServices" class="d-none" aria-hidden="true">
+              <input type="hidden" class="previous-service" th:each="id : ${reservaForm.servicioIds}" th:value="${id}">
+            </div>
+            <div class="form-section-label"><span>3</span> Elige fecha y horario</div>
+            <div class="row g-3 mb-3">
+              <div class="col-md-4"><label class="form-label" for="cantidadVehiculosReserva">Vehículos *</label><input id="cantidadVehiculosReserva" name="cantidadVehiculos" class="form-control" type="number" min="1" max="10" th:value="${reservaForm.cantidadVehiculos}" required data-validate="integer" inputmode="numeric"></div>
+              <div class="col-md-4"><label class="form-label" for="fecha">Fecha de visita *</label><input id="fecha" name="fecha" class="form-control" type="date" th:value="${reservaForm.fecha}" th:min="${hoy}" required></div>
+              <div class="col-md-4"><label class="form-label" for="hora">Hora disponible *</label><select id="hora" name="hora" class="form-select" required th:attr="data-selected=${reservaForm.hora}"><option value="">Selecciona una fecha</option></select></div>
+            </div>
+            <div class="mb-4"><label class="form-label" for="comentarios">Indicaciones adicionales</label><textarea id="comentarios" name="comentarios" class="form-control" rows="3" maxlength="700" placeholder="Algo que debamos tener en cuenta..." th:text="${reservaForm.comentarios}"></textarea></div>
+            <div class="booking-summary"><div><span>TOTAL ESTIMADO</span><small>Los precios ya incluyen impuestos.</small></div><strong id="totalReserva" aria-live="polite">S/ 0.00</strong></div>
+            <button class="booking-submit" type="submit"><i class="fa-solid fa-circle-check"></i> Confirmar solicitud de reserva <i class="fa-solid fa-arrow-right"></i></button>
+            <p class="privacy-note"><i class="fa-solid fa-lock"></i> Tus datos se usan exclusivamente para gestionar la reserva.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="booking-footer"><div class="container-xxl"><span>© 2026 GATRIX CarWash · Tu auto, como nuevo.</span><a href="/index.html">Volver al inicio</a></div></footer>
+  <script src="/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="/js/reserva.js?v=9"></script>
+<script src="/js/gatrix-validation.js?v=8" defer></script>
+</body>
+</html>

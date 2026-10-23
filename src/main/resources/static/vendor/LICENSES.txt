@@ -1,0 +1,2 @@
+Bootstrap 5.1.1 — MIT — https://github.com/twbs/bootstrap/blob/main/LICENSE
+Font Awesome Free — licenses in Font Awesome distribution: icons CC BY 4.0, fonts SIL OFL 1.1, code MIT. https://fontawesome.com/license/free

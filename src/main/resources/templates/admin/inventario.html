@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="es" xmlns:th="http://www.thymeleaf.org"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#082650">
+  <title>Inventario · GATRIX CarWash</title>
+  <link rel="icon" href="/img/Logo.png" type="image/png">
+  <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/css/admin.css?v=4">
+<link rel="stylesheet" href="/css/gatrix-forms-nav.css?v=8">
+<link rel="stylesheet" href="/css/roles-gatrix.css?v=10">
+</head><body><div th:replace="~{fragments/admin :: menu}"></div><main class="admin-content">
+  <div class="page-heading"><div><span class="eyebrow">ALMACÉN / CONTROL</span><h1>Inventario y existencias</h1><p>Registra materiales y controla el stock en tiempo real.</p></div><a th:href="@{/admin/inventario/nuevo}" class="btn btn-primary"><i class="fa-solid fa-plus me-2"></i>Agregar artículo</a></div>
+  <div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div><div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+  <div class="surface-card"><div class="table-responsive"><table class="table modern-table"><thead><tr><th>Artículo</th><th>Stock</th><th>Mínimo</th><th>Costo unitario</th><th>Estado</th><th class="text-end">Acciones</th></tr></thead><tbody>
+    <tr th:each="a : ${articulos}"><td><strong th:text="${a.nombre}"></strong><small class="d-block text-muted" th:text="${a.categoria + ' · ' + a.unidad}"></small></td><td><b th:text="${a.stock}"></b><span class="text-muted small" th:text="${' ' + a.unidad}"></span></td><td th:text="${a.minimo}"></td><td th:text="${'S/ ' + a.costoUnitario}"></td><td><span class="status-badge" th:classappend="${a.stock <= a.minimo ? 'st-cancelada' : 'st-completada'}" th:text="${!a.activo ? 'INACTIVO' : (a.stock <= a.minimo ? 'REABASTECER' : 'EN STOCK')}"></span></td>
+    <td><div class="d-flex gap-1 justify-content-end flex-wrap"><form method="post" th:action="@{/admin/inventario/{id}/movimiento(id=${a.idArticulo})}"><input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"><input type="hidden" name="cantidad" value="-1"><button th:disabled="${!a.activo or a.stock == 0}" class="btn btn-sm btn-outline-secondary" title="Reducir una unidad" type="submit">−1</button></form><form method="post" th:action="@{/admin/inventario/{id}/movimiento(id=${a.idArticulo})}"><input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"><input type="hidden" name="cantidad" value="1"><button th:disabled="${!a.activo}" class="btn btn-sm btn-outline-secondary" title="Aumentar una unidad" type="submit">+1</button></form><a th:href="@{/admin/inventario/editar/{id}(id=${a.idArticulo})}" class="btn btn-sm btn-outline-primary">Editar</a>
+      <form method="post" th:if="${a.activo}" data-confirm="¿Desactivar este artículo de inventario?" th:action="@{/admin/inventario/eliminar/{id}(id=${a.idArticulo})}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"><button class="btn btn-sm btn-outline-danger">Desactivar</button></form>
+      <form method="post" th:unless="${a.activo}" data-confirm="¿Volver a activar este artículo?" th:action="@{/admin/inventario/activar/{id}(id=${a.idArticulo})}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"><button class="btn btn-sm btn-outline-success">Activar</button></form>
+    </div></td></tr>
+    <tr th:if="${#lists.isEmpty(articulos)}"><td colspan="6" class="empty-state">El inventario está vacío. Agrega tu primer material.</td></tr></tbody></table></div></div>
+  </main><div th:replace="~{fragments/admin :: pie}"></div><script src="/js/gatrix-validation.js?v=8" defer></script>
+</body></html>

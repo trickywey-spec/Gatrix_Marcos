@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- Única cabecera del sitio. Las ocho páginas públicas comparten este fragmento. -->
+<header th:fragment="barra" class="gatrix-site-header">
+  <nav class="navbar navbar-expand-xl navbar-gatrix" data-bs-theme="dark" aria-label="Navegación principal">
+    <div class="container-fluid gatrix-nav-inner">
+      <a class="navbar-brand gatrix-identity" th:href="@{/index.html}" aria-label="Gatrix CarWash, ir a inicio">
+        <span class="logo-icon" aria-hidden="true"><i class="fas fa-car-side"></i></span>
+        <span class="brand-text">GATRIX CARWASH</span>
+      </a>
+      <div class="gatrix-header-actions order-xl-3">
+        <a th:href="@{/login.html}" class="btn-login-nav d-none d-sm-inline-flex" aria-label="Iniciar sesión de administrador"><i class="fas fa-user" aria-hidden="true"></i><span>Iniciar Sesión</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navGatrix" aria-controls="navGatrix" aria-expanded="false" aria-label="Abrir menú de navegación"><span class="navbar-toggler-icon"></span></button>
+      </div>
+      <div class="collapse navbar-collapse order-xl-2" id="navGatrix">
+        <ul class="navbar-nav gatrix-menu mx-xl-auto" id="siteNavigation">
+          <li class="nav-item"><a th:href="@{/index.html}" class="nav-link"><i class="fas fa-home" aria-hidden="true"></i> Inicio</a></li>
+          <li class="nav-item"><a th:href="@{/inicio.html}" class="nav-link"><i class="fas fa-star" aria-hidden="true"></i> Nosotros</a></li>
+          <li class="nav-item"><a th:href="@{/ubicacion.html}" class="nav-link"><i class="fas fa-map-pin" aria-hidden="true"></i> Ubicación</a></li>
+          <li class="nav-item"><a th:href="@{/servicios.html}" class="nav-link"><i class="fas fa-spa" aria-hidden="true"></i> Servicios</a></li>
+          <li class="nav-item"><a th:href="@{/adicionales.html}" class="nav-link"><i class="fas fa-gem" aria-hidden="true"></i> Adicionales</a></li>
+          <li class="nav-item"><a th:href="@{/precios.html}" class="nav-link"><i class="fas fa-tags" aria-hidden="true"></i> Precios</a></li>
+          <li class="nav-item"><a th:href="@{/reservas.html}" class="nav-link"><i class="fas fa-calendar-check" aria-hidden="true"></i> Reservas</a></li>
+          <li class="nav-item"><a th:href="@{/consulta}" class="nav-link"><i class="fas fa-search" aria-hidden="true"></i> Consultar</a></li>
+        </ul>
+        <a th:href="@{/login.html}" class="btn-login-nav d-sm-none d-inline-flex gatrix-mobile-login"><i class="fas fa-user" aria-hidden="true"></i> Iniciar Sesión</a>
+      </div>
+    </div>
+  </nav>
+</header>
+</body></html>

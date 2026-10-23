@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gatrix CarWash | Servicios Premium</title>
+    <meta name="description" content="Gatrix CarWash: lavado y estética vehicular premium en La Molina, Lima. Reserva tu turno online.">
+    
+    <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/global.css">
+    
+    <link rel="stylesheet" href="/css/site-premium.css">
+    <link rel="stylesheet" href="/css/public-refresh.css?v=4">
+    
+    <link rel="icon" href="/img/Logo.png" type="image/png">
+    
+<link rel="stylesheet" href="/css/gatrix-forms-nav.css?v=8">
+<link rel="stylesheet" href="/css/roles-gatrix.css?v=11">
+</head>
+<body>
+<header th:replace="~{fragments/public :: barra}"></header>
+
+<main>
+    <section class="page-banner">
+        <h2><img class="gatrix-heading-logo" src="/img/gatrix-logo-corporativo.png" alt="GATRIX" loading="lazy"> Servicios Premium Gatrix</h2>
+        <p>Todo lo que tu auto necesita, en un solo lugar</p>
+    </section>
+
+    <section class="py-block container">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="servicio-card h-100">
+                    <div class="card-img-wrap"><img src="/img/Imagen03.png" alt="Lavado Exterior Premium Gatrix"></div>
+                    <div class="card-body">
+                        <h3><i class="fas fa-car-wash"></i> Lavado Exterior Premium</h3>
+                        <p class="text-muted small">Agua desionizada + champú PH neutro + secado con microfibra. Protege tu pintura y evita manchas de agua.</p>
+                        <span class="precio-tag">S/ 25.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="servicio-card h-100">
+                    <div class="card-img-wrap"><img src="/img/Imagen04.png" alt="Aspirado Interior y Vapor Gatrix"></div>
+                    <div class="card-body">
+                        <h3><i class="fas fa-wind"></i> Aspirado Interior + Vapor</h3>
+                        <p class="text-muted small">Aspirado profundo de alfombras, asientos y maletera. Vapor sanitizante que elimina el 99.9% de bacterias.</p>
+                        <span class="precio-tag">S/ 20.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="servicio-card h-100">
+                    <div class="card-img-wrap"><img src="/img/Imagen05.png" alt="Pulido de Faros Gatrix"></div>
+                    <div class="card-body">
+                        <h3><i class="fas fa-lightbulb"></i> Pulido de Faros</h3>
+                        <p class="text-muted small">Restauramos faros amarillentos y opacos. Mejora la visibilidad nocturna y la estética de tu auto.</p>
+                        <span class="precio-tag">S/ 45.00 (par)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="servicio-card h-100 motor-card">
+                    <div class="card-img-wrap"><img src="/img/Imagen06.png" alt="Limpieza de Motor Gatrix"></div>
+                    <div class="card-body">
+                        <h3><i class="fas fa-cogs"></i> Limpieza de Motor</h3>
+                        <p class="text-muted small">Desengrase y limpieza externa del motor con productos dieléctricos que protegen componentes eléctricos.</p>
+                        <span class="precio-tag">S/ 35.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container pb-block">
+        <div class="cta-section">
+            <h3>¿Listo para darle el brillo que merece tu auto?</h3>
+            <a href="/reservas.html" class="btn-gatrix-primary"><i class="fas fa-calendar-check"></i> Reserva tu Turno</a>
+        </div>
+    </section>
+
+<section class="site-featured"><div class="container"><span class="tiny-label">SERVICIOS A TU MEDIDA</span><div class="d-flex justify-content-between align-items-end gap-3 flex-wrap"><h2 class="mt-2 mb-0 fw-bold" style="font-size:clamp(30px,3vw,43px)">Tu auto, en las mejores manos.</h2><a class="btn btn-outline-dark" href="/precios.html">Comparar todos los precios <i class="fa-solid fa-arrow-right ms-1"></i></a></div><div class="featured-services"><div class="featured-service" th:each="s,iter : ${serviciosActivos}" th:if="${iter.index < 6}"><i class="fa-solid fa-droplet"></i><h3 th:text="${s.nombre}"></h3><p th:text="${s.descripcion}"></p><div class="d-flex justify-content-between align-items-center gap-2"><b th:text="${'S/ ' + s.precio}"></b><a class="btn btn-sm btn-outline-primary" th:href="@{/reservas.html(servicios=${s.id})}">Reservar <i class="fa-solid fa-arrow-right"></i></a></div></div></div></div></section>
+</main>
+<footer class="main-footer">
+    <div class="container">
+        <div class="row g-4 pb-4">
+            <div class="col-md-4 footer-col">
+                <h3><i class="fas fa-car-side text-brand"></i> Gatrix CarWash</h3>
+                <p>El brillo que tu auto merece. Tecnología y pasión por los autos desde 2026.</p>
+            </div>
+            <div class="col-md-4 footer-col">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="/index.html"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+                    <li><a href="/inicio.html"><i class="fas fa-chevron-right"></i> Nosotros</a></li>
+                    <li><a href="/ubicacion.html"><i class="fas fa-chevron-right"></i> Ubicación</a></li>
+                    <li><a href="/servicios.html"><i class="fas fa-chevron-right"></i> Servicios</a></li>
+                    <li><a href="/adicionales.html"><i class="fas fa-chevron-right"></i> Adicionales</a></li>
+                    <li><a href="/precios.html"><i class="fas fa-chevron-right"></i> Precios</a></li>
+                    <li><a href="/reservas.html"><i class="fas fa-chevron-right"></i> Reservas</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 footer-col">
+                <h4>Contacto &amp; Redes</h4>
+                <p><i class="fas fa-phone"></i> 987 654 321</p>
+                <p><i class="fas fa-envelope"></i> contacto@gatrixcarwash.pe</p>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Los Ingenieros 456, La Molina</p>
+                <div class="social-links">
+                    <a href="https://wa.me/51987654321" target="_blank" rel="noopener" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://facebook.com" target="_blank" rel="noopener" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://youtube.com" target="_blank" rel="noopener" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Gatrix CarWash | Todos los derechos reservados</p>
+    </div>
+</footer>
+<script src="/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+
+<a class="floating-whatsapp" href="https://wa.me/51987654321" target="_blank" rel="noopener" title="Escríbenos por WhatsApp" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<script src="/js/site.js?v=4"></script>
+<script src="/js/gatrix-validation.js?v=8" defer></script>
+</body>
+</html>

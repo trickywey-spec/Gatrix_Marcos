@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gatrix CarWash | Precios y cotizador</title>
+    <meta name="description" content="Gatrix CarWash: lavado y estética vehicular premium en La Molina, Lima. Reserva tu turno online.">
+    
+    <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/global.css">
+    
+    <link rel="stylesheet" href="/css/site-premium.css">
+    <link rel="stylesheet" href="/css/public-refresh.css?v=4">
+
+    <link rel="icon" href="/img/Logo.png" type="image/png">
+
+<link rel="stylesheet" href="/css/gatrix-forms-nav.css?v=8">
+<link rel="stylesheet" href="/css/roles-gatrix.css?v=11">
+</head>
+<body>
+<header th:replace="~{fragments/public :: barra}"></header>
+<main><section class="page-banner"><div class="container"><span class="hero-badge">SEGUIMIENTO DE RESERVAS</span><h2 class="mt-3"><img class="gatrix-heading-logo" src="/img/gatrix-logo-corporativo.png" alt="GATRIX" loading="lazy"> ¿Cómo va tu reserva?</h2><p>Consulta el estado de tu atención cuando quieras.</p></div></section>
+<section class="container py-block"><div class="row justify-content-center"><div class="col-lg-8"><div class="reservation-form"><h3>Consultar mi reserva</h3><p>Ingresa el código recibido al confirmar y el correo utilizado en el formulario.</p>
+<form th:action="@{/consulta}" method="post"><input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"><div th:if="${errorConsulta}" class="alert alert-danger" th:text="${errorConsulta}"></div><div class="row g-3"><div class="col-md-6"><label class="form-label" for="codigo">Código de reserva</label><input class="form-control" name="codigo" id="codigo" placeholder="GRX-..." required maxlength="40" data-validate="code"></div><div class="col-md-6"><label class="form-label" for="email">Correo electrónico</label><input class="form-control" type="email" name="email" id="email" placeholder="cliente@correo.com" required maxlength="120" data-validate="email"></div></div><button class="btn-gatrix-primary mt-4" type="submit"><i class="fas fa-search"></i> Consultar estado</button></form>
+<div class="mt-4 p-4 rounded-4" style="background:#eaf9f5" th:if="${reserva}"><span class="text-muted small">ESTADO DE TU ATENCIÓN</span><h3 class="mt-2" th:text="${reserva.estado}">PENDIENTE</h3><p class="mb-1" th:text="${reserva.resumenServicios}"></p><p class="mb-1" th:text="${'Fecha: ' + reserva.fecha + ' · ' + reserva.hora}"></p><p class="mb-0 fw-bold" th:text="${'Importe: S/ ' + reserva.precioTotal}"></p></div>
+</div></div></div></section></main>
+<footer class="main-footer">
+    <div class="container">
+        <div class="row g-4 pb-4">
+            <div class="col-md-4 footer-col">
+                <h3><i class="fas fa-car-side text-brand"></i> Gatrix CarWash</h3>
+                <p>El brillo que tu auto merece. Tecnología y pasión por los autos desde 2026.</p>
+            </div>
+            <div class="col-md-4 footer-col">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="/index.html"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+                    <li><a href="/inicio.html"><i class="fas fa-chevron-right"></i> Nosotros</a></li>
+                    <li><a href="/ubicacion.html"><i class="fas fa-chevron-right"></i> Ubicación</a></li>
+                    <li><a href="/servicios.html"><i class="fas fa-chevron-right"></i> Servicios</a></li>
+                    <li><a href="/adicionales.html"><i class="fas fa-chevron-right"></i> Adicionales</a></li>
+                    <li><a href="/precios.html"><i class="fas fa-chevron-right"></i> Precios</a></li>
+                    <li><a href="/reservas.html"><i class="fas fa-chevron-right"></i> Reservas</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 footer-col">
+                <h4>Contacto &amp; Redes</h4>
+                <p><i class="fas fa-phone"></i> 987 654 321</p>
+                <p><i class="fas fa-envelope"></i> contacto@gatrixcarwash.pe</p>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Los Ingenieros 456, La Molina</p>
+                <div class="social-links">
+                    <a href="https://wa.me/51987654321" target="_blank" rel="noopener" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://facebook.com" target="_blank" rel="noopener" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://youtube.com" target="_blank" rel="noopener" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Gatrix CarWash | Todos los derechos reservados</p>
+    </div>
+</footer>
+<script src="/vendor/bootstrap/bootstrap.bundle.min.js"></script><script src="/js/site.js?v=4"></script><script src="/js/gatrix-validation.js?v=8" defer></script>
+</body></html>

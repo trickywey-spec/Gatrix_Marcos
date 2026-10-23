@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editar reserva · GATRIX</title>
+<link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="/css/admin.css"><link rel="stylesheet" href="/css/gatrix-forms-nav.css">
+<link rel="stylesheet" href="/css/roles-gatrix.css?v=10">
+</head>
+<body>
+<div th:replace="~{fragments/admin :: menu}"></div>
+<main class="admin-content">
+  <div class="page-heading"><div><span class="eyebrow">AGENDA / CORRECCIÓN</span><h1>Editar reserva</h1>
+  <p>Corrige datos y reagenda únicamente las reservas aún no cobradas.</p></div>
+  <a href="/admin/reservas" class="btn btn-outline-secondary">Volver a la agenda</a></div>
+  <div class="surface-card form-surface">
+    <form th:action="@{/admin/reservas/{id}/editar(id=${reservaId})}" th:object="${reservaForm}" method="post">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+      <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+      <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">Hay datos inválidos. Revisa los campos marcados.</div>
+      <div class="row g-3">
+        <div class="col-md-6"><label for="nombre" class="form-label">Nombre completo *</label>
+          <input id="nombre" class="form-control" th:field="*{nombreCompleto}" maxlength="120" data-validate="name" required>
+          <div class="text-danger small" th:errors="*{nombreCompleto}"></div></div>
+        <div class="col-md-6"><label for="email" class="form-label">Correo *</label>
+          <input id="email" type="email" class="form-control" th:field="*{email}" maxlength="120" required>
+          <div class="text-danger small" th:errors="*{email}"></div></div>
+        <div class="col-md-6"><label for="telefono" class="form-label">Celular *</label>
+          <input id="telefono" class="form-control" th:field="*{telefono}" inputmode="numeric" maxlength="9" pattern="9[0-9]{8}" data-validate="phone" required>
+          <div class="text-danger small" th:errors="*{telefono}"></div></div>
+        <div class="col-md-6"><label for="placa" class="form-label">Placa</label>
+          <input id="placa" class="form-control" th:field="*{placa}" maxlength="20" data-validate="plate">
+          <div class="text-danger small" th:errors="*{placa}"></div></div>
+        <div class="col-md-6"><label for="vehiculo" class="form-label">Tipo de vehículo *</label>
+          <select id="vehiculo" class="form-select" th:field="*{tipoVehiculo}" required>
+            <option value="">Seleccionar</option><option value="Sedán / Hatchback">Sedán / Hatchback</option><option value="Camioneta / SUV">Camioneta / SUV</option>
+            <option value="4x4 / Pick-up">4x4 / Pick-up</option><option value="Motocicleta">Motocicleta</option>
+          </select><div class="text-danger small" th:errors="*{tipoVehiculo}"></div></div>
+        <div class="col-md-6"><label for="cantidad" class="form-label">Cantidad de vehículos *</label>
+          <input id="cantidad" type="number" class="form-control" th:field="*{cantidadVehiculos}" min="1" max="10" data-validate="integer" required>
+          <div class="text-danger small" th:errors="*{cantidadVehiculos}"></div></div>
+        <div class="col-md-6"><label for="fecha" class="form-label">Fecha *</label>
+          <input id="fecha" type="date" class="form-control" th:field="*{fecha}" required>
+          <div class="text-danger small" th:errors="*{fecha}"></div></div>
+        <div class="col-md-6"><label for="hora" class="form-label">Hora *</label>
+          <select id="hora" class="form-select" th:field="*{hora}" required><option value="">Seleccionar</option>
+            <option th:each="h : ${horas}" th:value="${h}" th:text="${h}"></option>
+          </select><div class="text-danger small" th:errors="*{hora}"></div></div>
+        <div class="col-12"><label class="form-label">Servicios *</label>
+          <div class="row g-2"><div class="col-md-6" th:each="s : ${servicios}">
+            <label class="border rounded-3 p-3 d-flex align-items-center gap-2 w-100">
+              <input type="checkbox" class="form-check-input" th:field="*{servicioIds}" th:value="${s.id}">
+              <span th:text="${s.nombre + (s.activo ? '' : ' (retirado)')}"></span><span class="ms-auto text-nowrap" th:text="${'S/ ' + s.precio}"></span>
+            </label></div></div><div class="text-danger small" th:errors="*{servicioIds}"></div></div>
+        <div class="col-12"><label for="comentarios" class="form-label">Observaciones</label>
+          <textarea id="comentarios" class="form-control" th:field="*{comentarios}" maxlength="700" rows="3"></textarea></div>
+      </div>
+      <div class="d-flex gap-2 mt-4"><button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <a href="/admin/reservas" class="btn btn-outline-secondary">Cancelar edición</a></div>
+    </form>
+  </div>
+</main><div th:replace="~{fragments/admin :: pie}"></div><script defer src="/js/gatrix-validation.js"></script>
+</body></html>

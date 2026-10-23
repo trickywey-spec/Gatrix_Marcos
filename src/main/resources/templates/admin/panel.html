@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#082650">
+  <title>Resumen general · GATRIX CarWash</title>
+  <link rel="icon" href="/img/Logo.png" type="image/png">
+  <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/css/admin.css?v=4">
+<link rel="stylesheet" href="/css/gatrix-forms-nav.css?v=8">
+<link rel="stylesheet" href="/css/roles-gatrix.css?v=10">
+</head>
+<body><div th:replace="~{fragments/admin :: menu}"></div>
+<main class="admin-content">
+    <div class="page-heading"><div><span class="eyebrow">CENTRO DE CONTROL / EN VIVO</span><h1>Resumen de operaciones <span class="heading-spark">✦</span></h1><p>Todo lo que necesitas para gestionar tu carwash, en un solo lugar.</p></div><a class="btn btn-primary" th:href="@{/admin/reservas}"><i class="fa-solid fa-calendar-days me-2"></i>Ver agenda</a></div>
+    <section class="row g-3 mb-4" aria-label="Indicadores generales">
+        <div class="col-md-6 col-xl-3"><div class="metric-card accent-cyan"><div class="metric-icon"><i class="fa-regular fa-calendar"></i></div><span>Turnos de hoy</span><strong th:text="${reservasHoy}">0</strong><a th:href="@{/admin/reservas}">Gestionar agenda <i class="fa-solid fa-arrow-right"></i></a></div></div>
+        <div class="col-md-6 col-xl-3"><div class="metric-card accent-gold"><div class="metric-icon"><i class="fa-regular fa-clock"></i></div><span>Pendientes</span><strong th:text="${pendientes}">0</strong><a th:href="@{/admin/reservas(estado='PENDIENTE')}">Revisar solicitudes <i class="fa-solid fa-arrow-right"></i></a></div></div>
+        <div class="col-md-6 col-xl-3"><div class="metric-card accent-green"><div class="metric-icon"><i class="fa-solid fa-check-double"></i></div><span>Completadas</span><strong th:text="${completadas}">0</strong><a th:href="@{/admin/reservas(estado='COMPLETADA')}">Ver historial <i class="fa-solid fa-arrow-right"></i></a></div></div>
+        <div class="col-md-6 col-xl-3"><div class="metric-card accent-violet"><div class="metric-icon"><i class="fa-solid fa-coins"></i></div><span>Total cobrado</span><strong th:text="${'S/ ' + #numbers.formatDecimal(totalCobrado, 1, 2)}">S/ 0.00</strong><a th:href="@{/admin/finanzas}">Ir a finanzas <i class="fa-solid fa-arrow-right"></i></a></div></div>
+    </section>
+    <section class="row g-4">
+        <div class="col-xl-8"><div class="surface-card h-100"><div class="section-heading"><div><h2>Actividad semanal</h2><p>Reservas creadas en los últimos 7 días</p></div><span class="pill-soft">7 días</span></div>
+            <div class="chart-bars" role="img" aria-label="Barras de reservas por día de la semana">
+                <div class="chart-column" th:each="p : ${grafico}"><span class="chart-value" th:text="${p.cantidad}">0</span><div class="chart-track"><div class="chart-fill" th:style="${'height:' + (p.porcentaje < 5 ? 5 : p.porcentaje) + '%'}" ></div></div><span class="chart-day" th:text="${p.dia}">Lun</span></div>
+            </div></div></div>
+        <div class="col-xl-4"><div class="surface-card h-100"><div class="section-heading"><div><h2>Estado del negocio</h2><p>Indicadores que requieren atención</p></div></div>
+            <div class="health-row"><span class="health-icon blue"><i class="fa-solid fa-circle-check"></i></span><div><b th:text="${confirmadas}">0</b><small>Reservas confirmadas</small></div></div>
+            <div class="health-row"><span class="health-icon orange"><i class="fa-solid fa-spinner"></i></span><div><b th:text="${enProceso}">0</b><small>Servicios en proceso</small></div></div>
+            <div class="health-row"><span class="health-icon red"><i class="fa-solid fa-triangle-exclamation"></i></span><div><b th:text="${bajoStock}">0</b><small>Artículos con bajo stock</small></div></div>
+            <div class="health-row"><span class="health-icon green"><i class="fa-solid fa-warehouse"></i></span><div><b th:text="${'S/ ' + inventarioValorizado}">S/ 0</b><small>Valor de inventario</small></div></div>
+        </div></div>
+    </section>
+    <section class="surface-card mt-4"><div class="section-heading"><div><h2>Últimas reservas</h2><p>Movimientos recientes registrados en PostgreSQL</p></div><a class="text-link" th:href="@{/admin/reservas}">Ver todas <i class="fa-solid fa-arrow-right"></i></a></div>
+        <div class="table-responsive"><table class="table modern-table"><thead><tr><th>Cliente</th><th>Turno</th><th>Importe</th><th>Estado</th></tr></thead><tbody>
+            <tr th:each="r : ${ultimas}"><td><strong th:text="${r.nombreCompleto}">Cliente</strong><small class="d-block text-muted" th:text="${r.codigo}">Código</small></td><td th:text="${#temporals.format(r.fecha, 'dd/MM/yyyy') + ' · ' + r.hora}">Fecha</td><td th:text="${'S/ ' + r.precioTotal}">S/ 0</td><td><span class="status-badge" th:classappend="${'st-' + #strings.toLowerCase(r.estado.name())}" th:text="${r.estado}">PENDIENTE</span></td></tr>
+            <tr th:if="${#lists.isEmpty(ultimas)}"><td colspan="4" class="empty-state">Aún no hay reservas. Aparecerán aquí cuando un cliente reserve.</td></tr>
+        </tbody></table></div>
+    </section>
+</main><div th:replace="~{fragments/admin :: pie}"></div><script src="/js/gatrix-validation.js?v=8" defer></script>
+</body></html>

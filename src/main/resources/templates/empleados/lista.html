@@ -1,0 +1,27 @@
+<!doctype html><html lang="es" xmlns:th="http://www.thymeleaf.org"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#082650">
+  <title>Empleados · GATRIX CarWash</title>
+  <link rel="icon" href="/img/Logo.png" type="image/png">
+  <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/css/admin.css?v=4">
+<link rel="stylesheet" href="/css/gatrix-forms-nav.css?v=8">
+<link rel="stylesheet" href="/css/roles-gatrix.css?v=10">
+</head>
+<body><div th:replace="~{fragments/admin :: menu}"></div><main class="admin-content"><div class="d-flex justify-content-between flex-wrap mb-4"><h1 class="subpage-title">Empleados</h1><a class="btn btn-primary" th:href="@{/empleados/nuevo}">+ Nuevo empleado</a></div>
+<div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div><div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+<div class="card admin-card p-3"><div class="table-responsive"><table class="table"><thead><tr><th>ID</th><th>Nombre</th><th>Teléfono</th><th>Contrato</th><th>Salario (S/)</th><th>Activo</th><th>Acciones</th></tr></thead><tbody>
+<tr th:each="e:${empleados}"><td th:text="${e.idEmpleado}"></td><td th:text="${e.nombres+' '+e.apellidos}"></td><td th:text="${e.telefono}"></td><td th:text="${e.tipoContrato}"></td><td th:text="${e.salarioBase}"></td><td th:text="${e.activo?'Sí':'No'}"></td>
+<td><a class="btn btn-outline-primary btn-sm" th:href="@{/empleados/editar/{id}(id=${e.idEmpleado})}">Editar</a>
+<form method="post" class="d-inline" th:action="@{/empleados/{id}/alternar(id=${e.idEmpleado})}" data-confirm="¿Actualizar el estado del empleado?">
+<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+<button type="submit" class="btn btn-sm btn-outline-secondary" th:text="${e.activo ? 'Desactivar' : 'Activar'}"></button></form>
+<form method="post" class="d-inline" th:action="@{/empleados/{id}/eliminar(id=${e.idEmpleado})}"
+  data-confirm="Se eliminarán definitivamente el empleado y su usuario asociado. Esta acción no se puede deshacer. ¿Continuar?">
+  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+  <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button></form></td></tr>
+<tr th:if="${#lists.isEmpty(empleados)}"><td colspan="7">Aún no hay empleados.</td></tr></tbody></table></div></div>
+</main><div th:replace="~{fragments/admin :: pie}"></div><script src="/js/gatrix-validation.js?v=8" defer></script>
+</body></html>
